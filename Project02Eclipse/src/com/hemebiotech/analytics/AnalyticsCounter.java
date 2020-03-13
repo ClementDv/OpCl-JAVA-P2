@@ -2,10 +2,12 @@ package com.hemebiotech.analytics;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
 public class AnalyticsCounter {
+    public static GetPathFile pathFileRead = new ReadPathFromFile();
 
     public static void writeFileOut(Map<String, Integer> symptomsMap, String outPath) {
         try {
@@ -32,12 +34,13 @@ public class AnalyticsCounter {
         return new_map;
     }
 
-    public static void main(String[] args) {
-        ISymptomReader listSymptom = new ReadSymptomDataFromFile("symptoms.txt");
+    public static void main(String[] args) throws IOException {
+
+        ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.ReadFile());
 
         Map<String, Integer> mapSymptoms = mapFromList(listSymptom.GetSymptoms());
 
-        writeFileOut(mapSymptoms, "result.out");
+        writeFileOut(mapSymptoms, pathFileRead.OutFile());
     }
 
 }
