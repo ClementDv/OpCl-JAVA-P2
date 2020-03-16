@@ -11,21 +11,19 @@ public class ReadPathFromFile implements GetPathFile {
     public static final String DEFAULT_OUT = "result.out";
 
     @Override
-    public String getSymptomsFile() throws IOException {
+    public String getSymptomsFile() {
         return lineReadProp(1, DEFAULT_IN);
     }
 
     @Override
-    public String getResultFile() throws IOException {
+    public String getResultFile() {
         return lineReadProp(2, DEFAULT_OUT);
     }
 
-    public static String lineReadProp(int nb, String defValue) throws IOException {
-        BufferedReader inputStream = null;
-        String line = null;
+    public static String lineReadProp(int nb, String defValue) {
 
-        try {
-            inputStream = new BufferedReader(new FileReader(PROP_PATH));
+        String line = null;
+        try (BufferedReader inputStream = new BufferedReader(new FileReader(PROP_PATH))) {
             for (int i = 0; i < nb; i++) line = inputStream.readLine();
             if (line != null) {
                 return line;
@@ -34,10 +32,6 @@ public class ReadPathFromFile implements GetPathFile {
             // Ignore it to return default value
         } catch (IOException e) {
             System.err.println("Erreur IO : " + e.getMessage());
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
         }
         return defValue;
     }

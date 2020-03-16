@@ -27,15 +27,12 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
         ArrayList<String> result = new ArrayList<>();
 
         if (filepath != null) {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(filepath));
+            try (BufferedReader reader = new BufferedReader(new FileReader(filepath))) {
                 String line = reader.readLine();
-
                 while (line != null) {
                     result.add(line);
                     line = reader.readLine();
                 }
-                reader.close();
             } catch (FileNotFoundException fnfe) {
                 System.err.println("Le fichier de symptoms n'existe pas ou n'est pas accessible.");
             } catch (IOException e) {

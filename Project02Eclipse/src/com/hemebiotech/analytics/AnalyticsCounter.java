@@ -1,9 +1,6 @@
 package com.hemebiotech.analytics;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 public class AnalyticsCounter {
@@ -26,17 +23,10 @@ public class AnalyticsCounter {
     }
 
     public static void writeFileOut(Map<String, Integer> symptomsMap, String outPath) {
-        try {
-            File file = new File(outPath);
-            FileOutputStream fos = new FileOutputStream(file);
-            PrintWriter pw = new PrintWriter(fos);
-
-            for (Map.Entry<String, Integer> m : symptomsMap.entrySet()) {
-                pw.println(m.getKey() + "=" + m.getValue());
+        try (Writer wr = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outPath))))) {
+            for (Map.Entry<String, Integer> mSymptom : symptomsMap.entrySet()) {
+                wr.write(mSymptom.getKey() + "=" + mSymptom.getValue() + '\n');
             }
-            pw.flush();
-            pw.close();
-            fos.close();
         } catch (Exception e) {
             System.err.println("Problème dans la création ou dans l'écriture du fichier de sortie");
         }
