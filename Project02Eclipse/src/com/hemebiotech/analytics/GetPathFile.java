@@ -3,6 +3,10 @@ package com.hemebiotech.analytics;
 import java.io.IOException;
 
 public interface GetPathFile {
-    String getSymptomsFile() throws IOException;
-    String getResultFile() throws IOException;
+    /**
+     * Get the path of Symptoms file and Result file, if properties doesn't exist it will attribute a default value
+     **/
+    String getSymptomsFile();
+
+    String getResultFile();
 }

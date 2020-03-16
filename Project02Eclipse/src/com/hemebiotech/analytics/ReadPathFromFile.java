@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadPathFromFile implements GetPathFile {
+    // Default value
     public static final String PROP_PATH = "properties.txt";
     public static final String DEFAULT_IN = "symptoms.txt";
     public static final String DEFAULT_OUT = "result.out";
@@ -20,6 +21,11 @@ public class ReadPathFromFile implements GetPathFile {
         return lineReadProp(2, DEFAULT_OUT);
     }
 
+    /**
+     * Check if properties file exist and verify the validity of it.
+     * If it's valid it return le line asked.
+     * Send a default value that return if nothing found.
+     **/
     public static String lineReadProp(int nb, String defValue) {
 
         String line = null;
