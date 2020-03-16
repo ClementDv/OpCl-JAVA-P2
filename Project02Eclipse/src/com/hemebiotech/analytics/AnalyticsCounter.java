@@ -7,7 +7,23 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class AnalyticsCounter {
-    public static GetPathFile pathFileRead = new ReadPathFromFile();
+
+    public static void main(String[] args) throws IOException {
+        GetPathFile pathFileRead = new ReadPathFromFile();
+        ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.getSymptomsFile());
+
+        Map<String, Integer> mapSymptoms = mapFromList(listSymptom.GetSymptoms());
+
+        writeFileOut(mapSymptoms, pathFileRead.getResultFile());
+    }
+
+    public static Map<String, Integer> mapFromList(List<String> listFull) {
+        Map<String, Integer> new_map = new HashMap<>();
+        for (String symptom : listFull) {
+            new_map.merge(symptom, 1, Integer::sum);
+        }
+        return new_map;
+    }
 
     public static void writeFileOut(Map<String, Integer> symptomsMap, String outPath) {
         try {
@@ -22,25 +38,8 @@ public class AnalyticsCounter {
             pw.close();
             fos.close();
         } catch (Exception e) {
-            System.out.println("Problème dans la création ou dans l'écriture du fichier de sortie");
+            System.err.println("Problème dans la création ou dans l'écriture du fichier de sortie");
         }
-    }
-
-    public static Map<String, Integer> mapFromList(List<String> listFull) {
-        Map<String, Integer> new_map = new HashMap<>();
-        for (String symptom : listFull) {
-            new_map.merge(symptom, 1, Integer::sum);
-        }
-        return new_map;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.ReadFile());
-
-        Map<String, Integer> mapSymptoms = mapFromList(listSymptom.GetSymptoms());
-
-        writeFileOut(mapSymptoms, pathFileRead.OutFile());
     }
 
 }

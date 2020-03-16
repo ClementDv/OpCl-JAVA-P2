@@ -5,38 +5,41 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadPathFromFile implements GetPathFile{
-    public static final java.lang.String propPath = "properties.txt";
+public class ReadPathFromFile implements GetPathFile {
+    public static final String PROP_PATH = "properties.txt";
+    public static final String DEFAULT_IN = "symptoms.txt";
+    public static final String DEFAULT_OUT = "result.out";
+
+    @Override
+    public String getSymptomsFile() throws IOException {
+        return lineReadProp(1, DEFAULT_IN);
+    }
+
+    @Override
+    public String getResultFile() throws IOException {
+        return lineReadProp(2, DEFAULT_OUT);
+    }
 
     public static String lineReadProp(int nb, String defValue) throws IOException {
         BufferedReader inputStream = null;
         String line = null;
 
         try {
-            inputStream = new BufferedReader(new FileReader(propPath));
+            inputStream = new BufferedReader(new FileReader(PROP_PATH));
             for (int i = 0; i < nb; i++) line = inputStream.readLine();
-            System.out.println(line);
-            return line;
-        } catch (FileNotFoundException flfe) {
-            System.out.println("Erreur : Le fichier de propriétées n'existe pas, est un dossier ou ne peut être lu.");
-        } catch (IOException ioe) {
-            System.out.println("Erreur IO.");
+            if (line != null) {
+                return line;
+            }
+        } catch (FileNotFoundException fnfe) {
+            // Ignore it to return default value
+        } catch (IOException e) {
+            System.err.println("Erreur IO : " + e.getMessage());
         } finally {
             if (inputStream != null) {
                 inputStream.close();
-                System.out.println(1);
             }
         }
         return defValue;
     }
 
-    @Override
-    public String ReadFile() throws IOException {
-        return lineReadProp(1, "symptoms.txt");
-    }
-
-    @Override
-    public String OutFile() throws IOException {
-        return lineReadProp(2, "result.out");
-    }
 }
