@@ -22,9 +22,9 @@ public class ReadPathFromFile implements GetPathFile {
     }
 
     /**
-     * Check if properties file exist and verify the validity of it.
-     * If it's valid it return le line asked.
-     * Send a default value that return if nothing found.
+     * Check if properties file exist and verifies validity of it.
+     * If it is valid it returns line asked.
+     * Sends a default value, which is return if nothing found.
      **/
     public static String lineReadProp(int nb, String defValue) {
 
@@ -37,7 +37,7 @@ public class ReadPathFromFile implements GetPathFile {
         } catch (FileNotFoundException fnfe) {
             // Ignore it to return default value
         } catch (IOException e) {
-            System.err.println("Erreur IO : " + e.getMessage());
+            System.err.println("Error IO : " + e.getMessage());
         }
         return defValue;
     }

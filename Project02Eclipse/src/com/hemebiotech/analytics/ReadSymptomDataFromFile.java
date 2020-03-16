@@ -1,6 +1,5 @@
 package com.hemebiotech.analytics;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,9 +33,9 @@ public class ReadSymptomDataFromFile implements ISymptomReader {
                     line = reader.readLine();
                 }
             } catch (FileNotFoundException fnfe) {
-                System.err.println("Le fichier de symptoms n'existe pas ou n'est pas accessible.");
+                System.err.println("The symptom file does not exist or is not accessible.");
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println("Error IO : " + e.getMessage());
             }
         }
         return result;

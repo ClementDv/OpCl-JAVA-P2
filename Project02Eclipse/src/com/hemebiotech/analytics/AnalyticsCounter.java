@@ -11,7 +11,7 @@ public class AnalyticsCounter {
         // Setup a list from the symptoms file.
         ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.getSymptomsFile());
         // Create a map with the number of symptoms.
-        Map<String, Integer> mapSymptoms = mapFromList(listSymptom.GetSymptoms());
+        Map<String, Integer> mapSymptoms = sortMap(mapFromList(listSymptom.GetSymptoms()));
         // Write in the result file.
         writeFileOut(mapSymptoms, pathFileRead.getResultFile());
     }
@@ -36,8 +36,22 @@ public class AnalyticsCounter {
                 wr.write(mSymptom.getKey() + "=" + mSymptom.getValue() + '\n');
             }
         } catch (Exception e) {
-            System.err.println("Problème dans la création ou dans l'écriture du fichier de sortie");
+            System.err.println("Problem in creating or writing the output file.");
         }
     }
 
+    public static Map<String, Integer> sortMap(Map<String, Integer> map) {
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort(new Comparator<>() {
+            public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
+                return a.getKey().compareTo(b.getKey());
+            }
+        });
+
+        Map<String, Integer> mapSorted = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
+            mapSorted.put(entry.getKey(), entry.getValue());
+        }
+        return mapSorted;
+    }
 }
