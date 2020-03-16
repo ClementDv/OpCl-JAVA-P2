@@ -9,7 +9,7 @@ public class ReadPathFromFile implements GetPathFile {
     // Default value
     public static final String PROP_PATH = "properties.txt";
     public static final String DEFAULT_IN = "symptoms.txt";
-    public static final String DEFAULT_OUT = "result.out";
+    public static final String DEFAULT_OUT = "results.out";
 
     @Override
     public String getSymptomsFile() {
