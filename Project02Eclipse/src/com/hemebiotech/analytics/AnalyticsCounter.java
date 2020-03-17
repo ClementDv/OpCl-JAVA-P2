@@ -7,7 +7,7 @@ public class AnalyticsCounter {
 
     public static void main(String[] args) {
         // Get path from properties file.
-        GetPathFile pathFileRead = new ReadPathFromFile();
+        IGetPathFile pathFileRead = new ReadPathFromFile();
         // Setup a list from the symptoms file.
         ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.getSymptomsFile());
         // Create a map with the number of symptoms.
@@ -28,7 +28,7 @@ public class AnalyticsCounter {
     }
 
     /**
-     * Write the key of a list and the value associated in a file from a given path
+     * Write the key of a list and associated value in a file from a given path
      **/
     public static void writeFileOut(Map<String, Integer> symptomsMap, String outPath) {
         try (Writer wr = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(outPath))))) {

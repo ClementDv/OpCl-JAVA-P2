@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadPathFromFile implements GetPathFile {
+public class ReadPathFromFile implements IGetPathFile {
     // Default value
     public static final String PROP_PATH = "properties.txt";
     public static final String DEFAULT_IN = "symptoms.txt";
