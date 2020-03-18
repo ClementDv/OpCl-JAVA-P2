@@ -10,7 +10,7 @@ public class AnalyticsCounter {
         IGetPathFile pathFileRead = new ReadPathFromFile();
         // Setup a list from the symptoms file.
         ISymptomReader listSymptom = new ReadSymptomDataFromFile(pathFileRead.getSymptomsFile());
-        // Create a map with the number of symptoms.
+        // Create a map with the number of symptoms sorted in alphabetic order.
         Map<String, Integer> mapSymptoms = sortMap(mapFromList(listSymptom.GetSymptoms()));
         // Write in the result file.
         writeFileOut(mapSymptoms, pathFileRead.getResultFile());
